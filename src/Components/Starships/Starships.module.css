@@ -1,0 +1,13 @@
+.starships{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../img/starWarsCover.jpg");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
