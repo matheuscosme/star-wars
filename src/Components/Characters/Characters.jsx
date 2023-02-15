@@ -4,14 +4,17 @@ import axios from "axios";
 
 const Characters = () => {
 
-    const [person, setPerson] = useState([]);
+    const [persons, setPersons] = useState([]);
+    const [quantity, setQuantity] = useState();
+
 
     useEffect(() => {
-        axios.get('https://swapi.dev/api/people/1/')
+        axios.get('https://swapi.dev/api/people/')
         .then((response) => {
           
-            console.log(response.data)
-            setPerson((response.data));
+            console.log(response.data.results);
+            setPersons(response.data.results);
+            setQuantity((response.data.count));
          
         }).catch(() => {
           
@@ -21,8 +24,15 @@ const Characters = () => {
 
     return (
         <>
+
         <div className={styles.characters}>
-            <h1>Personagem: {person.name}</h1>
+            <h1>Total de Personagens: {quantity}</h1>
+            <h1>Listagem: </h1>
+            <ul>
+                {persons.map(person => 
+                <li key={person.url}>{person.name}</li>
+                )}
+            </ul>
         </div>
         </>
     )

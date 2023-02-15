@@ -11,6 +11,7 @@ const Header = () => {
             
             <div className={styles.navigation}>
             <ul className={styles.menu}>
+            <NavLink to="/">Home</NavLink>
             <NavLink to="/characters">Characters</NavLink>
             <NavLink to="/movies">Movies</NavLink>
             <NavLink to="/starships">Starships</NavLink>
