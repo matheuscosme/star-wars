@@ -1,11 +1,45 @@
-import React from "react";
-import styles from "./Movies.module.css"
+import React, { useState, useEffect } from "react";
+import styles from "./Movies.module.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Movies = () => {
+
+    const [movies, setMovies] = useState([]);
+    const [quantity, setQuantity] = useState();
+
+
+    useEffect(() => {
+        axios.get('https://swapi.dev/api/films/')
+        .then((response) => {
+          
+            console.log(response.data.results);
+            setMovies(response.data.results);
+            setQuantity((response.data.count));
+         
+        }).catch(() => {
+          
+        })
+
+      }, []);
+
+    function removeHttp(url){
+        var id = url.split("https://swapi.dev/api/films/").toString();
+        id = id.replace(/[,/]/g,'');
+        return id
+    }
+
     return (
         <>
         <div className={styles.movies}>
-            <h1>MOVIES</h1>
+            <h1>Movies ({quantity}) </h1>
+            <div className={styles.film}>
+                <ul>
+                    {movies.map(movie => 
+                    <li key={movie.url}> {removeHttp(movie.url)} - <Link to={`/MoviesDetails/${removeHttp(movie.url)}`}>{movie.title}</Link> </li>
+                    )} 
+                </ul>
+            </div>
         </div>
         </>
     )

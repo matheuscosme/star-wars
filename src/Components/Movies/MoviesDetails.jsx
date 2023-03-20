@@ -1,37 +1,35 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Characters.module.css";
+import styles from "./Movies.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const CharactersDetails = () => {
+const MoviesDetails = () => {
 
-    const [person, setPerson] = useState([]);
-    const [films, setFilms] = useState([]);
+    const [film, setFilm] = useState([]);
+    const [characters, setCharacters] = useState([]);
+    const [planets, setPlanets] = useState([]);
     const [starships, setStarships] = useState([]);
     const [vehicles, setVehicles] = useState([]);
     const [species, setSpecies] = useState([]);
-    const [homeworld, setHomeWorld] = useState();
-    const [homeworldUrl, setHomeWorldUrl] = useState();
     const {id} = useParams();
 
 
     useEffect(() => {
-        axios.get(`https://swapi.dev/api/people/${id}`)
+        axios.get(`https://swapi.dev/api/films/${id}`)
         .then(async (response) => {
           
-            setPerson(response.data);
-            setFilms(await getList(response.data.films));
+            setFilm(response.data);
+            setCharacters(await getList(response.data.characters));
+            setPlanets(await getList(response.data.planets));
             setStarships(await getList(response.data.starships));
             setVehicles(await getList(response.data.vehicles));
             setSpecies(await getList(response.data.species));
-            getHomeWorld(response.data.homeworld);
-
+         
         }).catch(() => {
         })
       }, []);
 
-    
     async function getList(urlList){
         let list = [];
         for(let i = 0;i<urlList.length;i++){
@@ -43,44 +41,36 @@ const CharactersDetails = () => {
         return list;
     }
 
-    async function getHomeWorld(planetUrl){
-        await axios.get(`${planetUrl}`)
-        .then((response) =>{
-            setHomeWorld(response.data.name);
-            var idHomeWorld = removeHttp(response.data.url, "planets");
-            setHomeWorldUrl(idHomeWorld);
-        })
-    }
-
     function removeHttp(url, type){
         var id = url.split(`https://swapi.dev/api/${type}/`).toString();
         id = id.replace(/[,/]/g,'');
         return id
     }
 
+
     return (
         <>
-        <div className={styles.characters}>
-            <h1>Character </h1>
-            <h1>{person.name}</h1>
-            <div className={styles.person}>
+        <div className={styles.movies_details}>
+            <h1>Film </h1>
+            <h1>{film.title}</h1>
+            <div className={styles.film}>
                 <ul>
-                   <li>Height: {person.height}</li>
-                   <li>Mass: {person.mass}</li>
-                   <li>Hair Color: {person.hair_color}</li> 
-                   <li>Eye Color: {person.eye_color}</li>
-                   <li>Homeworld: <Link to={`/PlanetsDetais/${homeworldUrl}`}>{homeworld}</Link></li>
-                   <li>Films: 
+                    <li>Test: {}</li>
+                    <li>Director: {film.director}</li>
+                    <li>Producer: {film.producer}</li>
+                    <li>Release Date: {film.release_date}</li> 
+                    <li>Episode: {film.episode_id}</li>
+                   <li>Characters: 
                         <ul>
-                            {films.map(movie =>
-                                <li key={movie.url}><Link to={`/MoviesDetails/${removeHttp(movie.url,"films")}`}>{movie.title}</Link></li>
+                            {characters.map(character =>
+                                <li key={character.url}><Link to={`/CharactersDetails/${removeHttp(character.url,"characters")}`}>{character.name}</Link></li>
                                 )}
                         </ul>
                     </li>
-                    <li>Vehicles: 
+                    <li>Planets: 
                         <ul>
-                            {vehicles.map(vehicle =>
-                                <li key={vehicle.url}><Link to={`/VehiclesDetails/${removeHttp(vehicle.url,"vehicles")}`}>{vehicle.name}</Link></li>
+                            {planets.map(planet =>
+                                <li key={planet.url}><Link to={`/PlanetsDetails/${removeHttp(planet.url,"planets")}`}>{planet.name}</Link></li>
                                 )}
                         </ul>
                     </li>
@@ -88,6 +78,13 @@ const CharactersDetails = () => {
                         <ul>
                             {starships.map(starship =>
                                 <li key={starship.url}><Link to={`/StarshipsDetails/${removeHttp(starship.url,"starships")}`}>{starship.name}</Link></li>
+                                )}
+                        </ul>
+                    </li>
+                    <li>Vehicles: 
+                        <ul>
+                            {vehicles.map(vehicle =>
+                                <li key={vehicle.url}><Link to={`/VehiclesDetails/${removeHttp(vehicle.url,"vehicles")}`}>{vehicle.name}</Link></li>
                                 )}
                         </ul>
                     </li>
@@ -106,4 +103,4 @@ const CharactersDetails = () => {
     )
 }
 
-export default CharactersDetails
+export default MoviesDetails

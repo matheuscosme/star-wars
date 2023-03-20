@@ -13,7 +13,6 @@ const Characters = () => {
         axios.get('https://swapi.dev/api/people/')
         .then((response) => {
           
-            console.log(response.data.results);
             setPersons(response.data.results);
             setQuantity((response.data.count));
          
