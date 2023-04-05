@@ -1,13 +1,41 @@
+@import url('https://fonts.cdnfonts.com/css/star-wars');
+
 .planets{
     width: 100vw;
     height: 100vh;
-    background-image: url("../img/starWarsCover.jpg");
+    background-image: url("../img/fundo-de-estrelas.avif");
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
+.planets h1{
+  font-family: 'Star Wars', sans-serif;
+  margin-top: 40px;
+  margin-left: 40px;
+  color: yellow;
+}
+
+.planet{
+  margin-left: 50px;
+}
+
+.planet ul{
+  list-style-type: none;
+}
+
+.planet li{
+  color:yellow;
+  margin-top: 10px;
+}
+
+.planet a{
+  color:yellow;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 200;
+}

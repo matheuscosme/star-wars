@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const Vehicles = () => {
 
     const [vehicles, setVehicles] = useState([]);
-    const [quantity, setQuantity] = useState();
     const [nextPage, setNextPage] = useState();
     const [previousPage, setPreviousPage] = useState();
 
@@ -16,7 +15,6 @@ const Vehicles = () => {
           
             console.log(response.data.results);
             setVehicles(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
          
         }).catch(() => {
@@ -38,7 +36,6 @@ const Vehicles = () => {
         await axios.get(`${previousPage}`)
         .then((response) => {
             setVehicles(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
             setPreviousPage(response.data.previous);
         }).catch(() => {
@@ -53,7 +50,6 @@ const Vehicles = () => {
         await axios.get(`${nextPage}`)
         .then((response) => {
             setVehicles(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
             setPreviousPage(response.data.previous);
         }).catch(() => {
@@ -64,7 +60,7 @@ const Vehicles = () => {
     return (
         <>
         <div className={styles.vehicles}>
-            <h1>Vehicles ({quantity})</h1>
+            <h1>Vehicles</h1>
             <div className={styles.vehicle}>
                 <ul>
                     {vehicles.map(vehicle => 

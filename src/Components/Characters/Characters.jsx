@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const Characters = () => {
 
     const [persons, setPersons] = useState([]);
-    const [quantity, setQuantity] = useState();
     const [nextPage, setNextPage] = useState();
     const [previousPage, setPreviousPage] = useState();
 
@@ -15,7 +14,6 @@ const Characters = () => {
         axios.get(`https://swapi.dev/api/people/?page=1`)
         .then((response) => {
             setPersons(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
         }).catch(() => {
           
@@ -36,7 +34,6 @@ const Characters = () => {
         await axios.get(`${previousPage}`)
         .then((response) => {
             setPersons(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
             setPreviousPage(response.data.previous);
         }).catch(() => {
@@ -51,7 +48,6 @@ const Characters = () => {
         await axios.get(`${nextPage}`)
         .then((response) => {
             setPersons(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
             setPreviousPage(response.data.previous);
         }).catch(() => {
@@ -63,7 +59,7 @@ const Characters = () => {
         <>
 
         <div className={styles.characters}>
-            <h1>Characters ({quantity}) </h1>
+            <h1>Characters</h1>
             <div className={styles.person}>
                 <ul>
                     {persons.map(person => 

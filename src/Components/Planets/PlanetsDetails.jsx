@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Vehicles.module.css";
+import styles from "./Planets.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const VehiclesDetails = () => {
+const PlanetsDetails = () => {
 
-    const [vehicle, setVehicle] = useState([]);
-    const [pilots, setPilots] = useState([]);
+    const [planet, setPlanet] = useState([]);
+    const [residents, setResidents] = useState([]);
     const [films, setFilms] = useState([]);
     const {id} = useParams();
 
 
     useEffect(() => {
-        axios.get(`https://swapi.dev/api/vehicles/${id}`)
+        axios.get(`https://swapi.dev/api/planets/${id}`)
         .then(async (response) => {
           
-            setVehicle(response.data);
-            setPilots(await getList(response.data.pilots));
-            console.log(response.data.pilots);
+            setPlanet(response.data);
+            setResidents(await getList(response.data.residents));
             setFilms(await getList(response.data.films));
 
         }).catch(() => {
@@ -45,28 +44,26 @@ const VehiclesDetails = () => {
 
     return (
         <>
-        <div className={styles.vehicles}>
-            <h1>Vehicle</h1>
-            <h1>{vehicle.name}</h1>
-            <div className={styles.vehicle}>
+        <div className={styles.planets}>
+            <h1>Planet</h1>
+            <h1>{planet.name}</h1>
+            <div className={styles.planet}>
                 <ul>
-                   <li>Model: {vehicle.model}</li>
-                   <li>Manufacturer: {vehicle.manufacturer}</li>
-                   <li>Cost: {vehicle.cost_in_credits}</li> 
-                   <li>Length: {vehicle.length}</li>
-                   <li>Max Speed: {vehicle.max_atmosphering_speed}</li>
-                   <li>Crew: {vehicle.crew}</li>
-                   <li>Passengers: {vehicle.passengers}</li>
-                   <li>Cargo Capacity: {vehicle.cargo_capacity}</li>
-                   <li>Class: {vehicle.vehicle_class}</li>
-                   <li>Pilots: 
+                   <li>Rotation Period: {planet.rotation_period}</li>
+                   <li>Orbital Period: {planet.orbital_period}</li>
+                   <li>Diameter: {planet.diameter}</li> 
+                   <li>Climate: {planet.climate}</li>
+                   <li>Gravity: {planet.gravity}</li>
+                   <li>Terrain: {planet.terrain}</li>
+                   <li>Population:{planet.population}</li>
+                   <li>Residents:
                         <ul>
-                            {pilots.map(pilot =>
-                                <li key={pilot.url}><Link to={`/CharactersDetails/${removeHttp(pilot.url,"people")}`}>{pilot.name}</Link></li>
+                            {residents.map(resident =>
+                                <li key={resident.url}><Link to={`/CharactersDetails/${removeHttp(resident.url,"people")}`}>{resident.name}</Link></li>
                                 )}
                         </ul>
                     </li>
-                   <li>Films: 
+                   <li>Films:
                         <ul>
                             {films.map(movie =>
                                 <li key={movie.url}><Link to={`/MoviesDetails/${removeHttp(movie.url,"films")}`}>{movie.title}</Link></li>
@@ -81,4 +78,4 @@ const VehiclesDetails = () => {
     )
 }
 
-export default VehiclesDetails
+export default PlanetsDetails

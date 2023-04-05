@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const Starships = () => {
 
     const [starships, setStarships] = useState([]);
-    const [quantity, setQuantity] = useState();
     const [nextPage, setNextPage] = useState();
     const [previousPage, setPreviousPage] = useState();
 
@@ -16,7 +15,6 @@ const Starships = () => {
           
             console.log(response.data.results);
             setStarships(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
          
         }).catch(() => {
@@ -38,7 +36,6 @@ const Starships = () => {
         await axios.get(`${previousPage}`)
         .then((response) => {
             setStarships(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
             setPreviousPage(response.data.previous);
         }).catch(() => {
@@ -53,7 +50,6 @@ const Starships = () => {
         await axios.get(`${nextPage}`)
         .then((response) => {
             setStarships(response.data.results);
-            setQuantity((response.data.count));
             setNextPage(response.data.next);
             setPreviousPage(response.data.previous);
         }).catch(() => {
@@ -64,7 +60,7 @@ const Starships = () => {
     return (
         <>
         <div className={styles.starships}>
-            <h1>Starships ({quantity})</h1>
+            <h1>Starships</h1>
             <div className={styles.starship}>
                 <ul>
                     {starships.map(starship=> 
