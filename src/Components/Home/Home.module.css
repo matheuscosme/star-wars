@@ -1,7 +1,9 @@
+@import url('https://fonts.cdnfonts.com/css/star-wars');
+
 .home{
     width: 100vw;
     height: 100vh;
-    background-image: url("../img/starWarsCover.jpg");
+    background-image: url("../img/fundo-de-estrelas.avif");
     background-position: center top;
     background-repeat: no-repeat;
     background-size: cover;
@@ -10,4 +12,12 @@
     justify-content: center;
     align-items: center;
   }
+
+.home h1{
+  font-family: 'Star Wars', sans-serif;
+  margin-top: 40px;
+  margin-left: 40px;
+  color: yellow;
+  font-size: 60px;
+}
 

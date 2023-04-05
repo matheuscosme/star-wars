@@ -37,7 +37,7 @@ const Movies = () => {
                 <ul>
                     {movies.map(movie => 
                     <li key={movie.url}> {removeHttp(movie.url)} - <Link to={`/MoviesDetails/${removeHttp(movie.url)}`}>{movie.title}</Link> </li>
-                    )} 
+                    )}
                 </ul>
             </div>
         </div>

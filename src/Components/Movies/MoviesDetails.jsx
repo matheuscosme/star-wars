@@ -55,7 +55,6 @@ const MoviesDetails = () => {
             <h1>{film.title}</h1>
             <div className={styles.film}>
                 <ul>
-                    <li>Test: {}</li>
                     <li>Director: {film.director}</li>
                     <li>Producer: {film.producer}</li>
                     <li>Release Date: {film.release_date}</li> 

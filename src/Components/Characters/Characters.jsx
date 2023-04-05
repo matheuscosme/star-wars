@@ -67,7 +67,7 @@ const Characters = () => {
             <div className={styles.person}>
                 <ul>
                     {persons.map(person => 
-                    <li key={person.url}> {removeHttp(person.url)} - <Link to={`/CharacterDetails/${removeHttp(person.url)}`}>{person.name}</Link> </li>
+                    <li key={person.url}> {removeHttp(person.url)} - <Link to={`/CharactersDetails/${removeHttp(person.url)}`}>{person.name}</Link> </li>
                     )} 
                 </ul>
                 <button onClick={previous}>{`<`} Previous</button>

@@ -11,6 +11,8 @@ import Species from './Components/Species/Species';
 import Planets from './Components/Planets/Planets';
 import CharactersDetails from './Components/Characters/CharactersDetails';
 import MoviesDetails from './Components/Movies/MoviesDetails';
+import VehiclesDetails from './Components/Vehicles/VehiclesDetails';
+import StarshipsDetails from './Components/Starships/StarshipsDetails';
 
 function App() {
   return (
@@ -25,8 +27,10 @@ function App() {
         <Route path='/vehicles' element={<Vehicles/>}> </Route>
         <Route path='/species' element={<Species/>}> </Route>
         <Route path='/planets' element={<Planets/>}> </Route>
-        <Route path="/CharacterDetails/:id" element={<CharactersDetails/>}></Route>
+        <Route path="/CharactersDetails/:id" element={<CharactersDetails/>}></Route>
         <Route path="/MoviesDetails/:id" element={<MoviesDetails/>}></Route>
+        <Route path="/VehiclesDetails/:id" element={<VehiclesDetails/>}></Route>
+        <Route path="/StarshipsDetails/:id" element={<StarshipsDetails/>}></Route>
       </Routes>
     </Router>
     </>

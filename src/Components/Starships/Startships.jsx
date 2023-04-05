@@ -1,11 +1,79 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Starships.module.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Starships = () => {
+
+    const [starships, setStarships] = useState([]);
+    const [quantity, setQuantity] = useState();
+    const [nextPage, setNextPage] = useState();
+    const [previousPage, setPreviousPage] = useState();
+
+    useEffect(() => {
+        axios.get('https://swapi.dev/api/starships/')
+        .then((response) => {
+          
+            console.log(response.data.results);
+            setStarships(response.data.results);
+            setQuantity((response.data.count));
+            setNextPage(response.data.next);
+         
+        }).catch(() => {
+          
+        })
+
+      }, []);
+
+    function removeHttp(url){
+        var id = url.split("https://swapi.dev/api/starships/").toString();
+        id = id.replace(/[,/]/g,'');
+        return id
+    }
+
+    async function previous(){
+        if(previousPage == null){
+            return;
+        }
+        await axios.get(`${previousPage}`)
+        .then((response) => {
+            setStarships(response.data.results);
+            setQuantity((response.data.count));
+            setNextPage(response.data.next);
+            setPreviousPage(response.data.previous);
+        }).catch(() => {
+          
+        })
+    }
+
+    async function next(){
+        if(nextPage == null){
+            return;
+        }
+        await axios.get(`${nextPage}`)
+        .then((response) => {
+            setStarships(response.data.results);
+            setQuantity((response.data.count));
+            setNextPage(response.data.next);
+            setPreviousPage(response.data.previous);
+        }).catch(() => {
+          
+        })
+    }
+
     return (
         <>
         <div className={styles.starships}>
-            <h1>STARSHIPS</h1>
+            <h1>Starships ({quantity})</h1>
+            <div className={styles.starship}>
+                <ul>
+                    {starships.map(starship=> 
+                    <li key={starship.url}>{removeHttp(starship.url)} - <Link to={`/StarshipsDetails/${removeHttp(starship.url)}`}>{starship.name}</Link> </li>
+                    )} 
+                </ul>
+                <button onClick={previous}>{`<`} Previous</button>
+                <button onClick={next}>Next {`>`}</button>
+            </div>
         </div>
         </>
     )
