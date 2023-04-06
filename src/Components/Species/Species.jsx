@@ -13,7 +13,6 @@ const Species = () => {
         axios.get('https://swapi.dev/api/species/')
         .then((response) => {
           
-            console.log(response.data.results);
             setSpecies(response.data.results);
             setNextPage(response.data.next);
          

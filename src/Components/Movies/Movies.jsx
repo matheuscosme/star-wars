@@ -11,8 +11,6 @@ const Movies = () => {
     useEffect(() => {
         axios.get('https://swapi.dev/api/films/')
             .then((response) => {
-
-                console.log(response.data.results);
                 setMovies(response.data.results);
             }).catch(() => {
 

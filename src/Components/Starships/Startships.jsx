@@ -13,7 +13,6 @@ const Starships = () => {
         axios.get('https://swapi.dev/api/starships/')
         .then((response) => {
           
-            console.log(response.data.results);
             setStarships(response.data.results);
             setNextPage(response.data.next);
          

@@ -13,7 +13,6 @@ const Planets = () => {
         axios.get('https://swapi.dev/api/planets/')
         .then((response) => {
           
-            console.log(response.data.results);
             setPlanets(response.data.results);
             setNextPage(response.data.next);
          

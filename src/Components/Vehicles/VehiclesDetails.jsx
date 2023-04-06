@@ -18,7 +18,6 @@ const VehiclesDetails = () => {
           
             setVehicle(response.data);
             setPilots(await getList(response.data.pilots));
-            console.log(response.data.pilots);
             setFilms(await getList(response.data.films));
 
         }).catch(() => {

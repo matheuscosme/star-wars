@@ -12,11 +12,10 @@ const Vehicles = () => {
     useEffect(() => {
         axios.get('https://swapi.dev/api/vehicles/')
         .then((response) => {
-          
-            console.log(response.data.results);
+
             setVehicles(response.data.results);
             setNextPage(response.data.next);
-         
+            
         }).catch(() => {
           
         })
