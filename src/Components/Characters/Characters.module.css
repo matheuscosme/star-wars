@@ -1,17 +1,5 @@
 @import url('https://fonts.cdnfonts.com/css/star-wars');
 
-.characters{
-    width: 100vw;
-    height: 100vh;
-    background-image: url("../img/fundo-de-estrelas.avif");
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
 
 .characters h1{
   font-family: 'Star Wars', sans-serif;

@@ -62,8 +62,8 @@ const Vehicles = () => {
             <h1>Vehicles</h1>
             <div className={styles.vehicle}>
                 <ul>
-                    {vehicles.map(vehicle => 
-                    <li key={vehicle.url}>{removeHttp(vehicle.url)} - <Link to={`/VehiclesDetails/${removeHttp(vehicle.url)}`}>{vehicle.name}</Link> </li>
+                    {vehicles.map((vehicle, index) => 
+                    <li key={vehicle.url}>{index+1} - <Link to={`/VehiclesDetails/${removeHttp(vehicle.url)}`}>{vehicle.name}</Link> </li>
                     )} 
                 </ul>
                 <button onClick={previous}>{`<`} Previous</button>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Movies.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { getId } from "../../utils/getId";
 
 const Movies = () => {
 
@@ -18,12 +19,6 @@ const Movies = () => {
 
     }, []);
 
-    function removeHttp(url) {
-        var id = url.split("https://swapi.dev/api/films/").toString();
-        id = id.replace(/[,/]/g, '');
-        return id
-    }
-
     return (
         <>
             <div className={styles.movies}>
@@ -31,7 +26,7 @@ const Movies = () => {
                 <div className={styles.film}>
                     <ul>
                         {movies.map(movie =>
-                            <li key={movie.url}> {removeHttp(movie.url)} - <Link to={`/MoviesDetails/${removeHttp(movie.url)}`}>{movie.title}</Link> </li>
+                            <li key={movie.url}><Link to={`/MoviesDetails/${getId(movie.url,"films")}`}>{movie.title}</Link> </li>
                         )}
                     </ul>
                 </div>
