@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Species.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
@@ -53,16 +52,19 @@ const Species = () => {
 
     return (
         <>
-        <div className={styles.species}>
-            <h1>Species</h1>
-            <div className={styles.specie}>
+        <div className="category">
+            <div className="title">
+                {previousPage && <button onClick={previous}>{`<`}</button>}
+                <h1>Species</h1>
+                {nextPage && <button onClick={next}>{`>`}</button>}
+            </div>
+            <div className="category">
                 <ul>
                     {species.map(specie => 
                     <li key={specie.url}><Link to={`/SpeciesDetails/${getId(specie.url, "species")}`}>{specie.name}</Link> </li>
                     )} 
                 </ul>
-                {previousPage && <button onClick={previous}>{`<`} Previous</button>}
-                {nextPage && <button onClick={next}>Next {`>`}</button>}
+
             </div>
         </div>
         </>

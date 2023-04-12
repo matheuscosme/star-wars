@@ -17,14 +17,7 @@
   height: 6rem;
   width: 100vw;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-
-.navigation{
-  width: 60%;
-  margin-left: 45%;
+  justify-content: flex-end;
 }
 
 .menu{
@@ -47,6 +40,5 @@
 
 .menu a:hover{
   color: white;
-  animation: heartbeat 1.5s ease-in-out infinite both;
 }
 

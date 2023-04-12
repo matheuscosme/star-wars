@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Vehicles.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
@@ -18,7 +17,6 @@ const Vehicles = () => {
             setNextPage(response.data.next);
             
         }).catch(() => {
-          
         })
 
       }, []);
@@ -53,16 +51,18 @@ const Vehicles = () => {
 
     return (
         <>
-        <div className={styles.vehicles}>
-            <h1>Vehicles</h1>
-            <div className={styles.vehicle}>
+        <div className="category">
+            <div className="title">
+                {previousPage && <button onClick={previous}>{`<`}</button>}
+                <h1>Vehicles</h1>
+                {nextPage && <button onClick={next}>{`>`}</button>}
+            </div>
+            <div className="category">
                 <ul>
                     {vehicles.map((vehicle) => 
                     <li key={vehicle.url}><Link to={`/VehiclesDetails/${getId(vehicle.url, "vehicles")}`}>{vehicle.name}</Link> </li>
                     )} 
                 </ul>
-                {previousPage && <button onClick={previous}>{`<`} Previous</button>}
-                {nextPage && <button onClick={next}>Next {`>`}</button>}
             </div>
         </div>
         </>

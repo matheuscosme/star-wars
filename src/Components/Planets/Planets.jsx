@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Planets.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
@@ -53,16 +52,18 @@ const Planets = () => {
 
     return (
         <>
-        <div className={styles.planets}>
-            <h1>Planets</h1>
-            <div className={styles.planet}>
+        <div className="category">
+            <div className="title">
+                {previousPage && <button onClick={previous}>{`<`}</button>}
+                <h1>Planets</h1>
+                {nextPage && <button onClick={next}>{`>`}</button>}
+            </div>
+            <div className="category">
                 <ul>
                     {planets.map(planet => 
                     <li key={planet.url}><Link to={`/PlanetsDetails/${getId(planet.url, "planets")}`}>{planet.name}</Link> </li>
                     )} 
                 </ul>
-                {previousPage && <button onClick={previous}>{`<`} Previous</button>}
-                {nextPage && <button onClick={next}>Next {`>`}</button>}
             </div>
         </div>
         </>

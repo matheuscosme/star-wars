@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Characters.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
+import Loading from "../Loading/Loading";
 
 const Characters = () => {
 
     const [persons, setPersons] = useState([]);
     const [nextPage, setNextPage] = useState();
     const [previousPage, setPreviousPage] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`https://swapi.dev/api/people/?page=1`)
             .then((response) => {
                 setPersons(response.data.results);
                 setNextPage(response.data.next);
             }).catch(() => {
-
+                setIsLoading(false);
             })
-
+            setIsLoading(false);
     }, []);
 
+    console.log(isLoading);
     async function previous() {
         if (previousPage == null) {
             return;
@@ -52,17 +55,21 @@ const Characters = () => {
 
     return (
         <>
-
-            <div className={styles.characters}>
-                <h1>Characters</h1>
-                <div className={styles.person}>
+            {isLoading && <Loading/>}
+            <div className={"category"}>
+                <div className={"title"}>
+                    {previousPage ? <button onClick={previous}>{`<`}</button> : null}
+                    <h1>Characters</h1>
+                    {nextPage ? <button onClick={next}>{`>`}</button> : null}
+                </div>
+                <div className={"category"}>
                     <ul>
                         {persons.map(person =>
                             <li key={person.url}><Link to={`/CharactersDetails/${getId(person.url, "people")}`}>{person.name}</Link> </li>
                         )}
                     </ul>
-                    {previousPage ? <button onClick={previous}>{`<`} Previous</button> : null}
-                    {nextPage ? <button onClick={next}>Next {`>`}</button> : null}
+                    
+                    
                 </div>
             </div>
         </>

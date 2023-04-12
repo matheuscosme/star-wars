@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Starships.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
@@ -54,16 +53,19 @@ const Starships = () => {
 
     return (
         <>
-        <div className={styles.starships}>
-            <h1>Starships</h1>
-            <div className={styles.starship}>
+        <div className="category">
+            <div className="title">
+                {previousPage && <button onClick={previous}>{`<`}</button>}
+                <h1>Starships</h1>
+                {nextPage && <button onClick={next}>{`>`}</button>}
+            </div>
+            <div className="category">
                 <ul>
                     {starships.map(starship=> 
                     <li key={starship.url}><Link to={`/StarshipsDetails/${getId(starship.url, "starships")}`}>{starship.name}</Link> </li>
                     )} 
                 </ul>
-                {previousPage && <button onClick={previous}>{`<`} Previous</button>}
-                {nextPage && <button onClick={next}>Next {`>`}</button>}
+
             </div>
         </div>
         </>

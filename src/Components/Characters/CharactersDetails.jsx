@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Characters.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
 import { getContent } from "../../utils/getContent";
 import { getHomeWorld } from "../../utils/getHomeworld";
+import Loading from "../Loading/Loading";
 
 const CharactersDetails = () => {
 
@@ -16,9 +16,11 @@ const CharactersDetails = () => {
     const [species, setSpecies] = useState([]);
     const [homeworld, setHomeWorld] = useState();
     const { id } = useParams();
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`https://swapi.dev/api/people/${id}`)
             .then(async (response) => {
 
@@ -37,18 +39,21 @@ const CharactersDetails = () => {
                     setSpecies(values[3])
                     setHomeWorld(values[4])
                 })
+                setIsLoading(false);
 
             }).catch(() => {
+                setIsLoading(true);
             })
     }, []);
 
 
     return (
         <>
-            <div className={styles.characters}>
+            {isLoading && <Loading/>}
+            <div className={"category"}>
                 <h1>Character </h1>
                 <h1>{person.name}</h1>
-                <div className={styles.person}>
+                <div className={"category"}>
                     <ul>
                         <li>Height: {person.height}</li>
                         <li>Mass: {person.mass}</li>

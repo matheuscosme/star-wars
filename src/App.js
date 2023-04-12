@@ -18,7 +18,7 @@ import PlanetsDetails from './Components/Planets/PlanetsDetails';
 
 function App() {
   return (
-    <>
+  
     <Router>
       <Header/>
       <Routes>
@@ -37,7 +37,6 @@ function App() {
         <Route path="/PlanetsDetails/:id" element={<PlanetsDetails/>}></Route>
       </Routes>
     </Router>
-    </>
 
   )
 }

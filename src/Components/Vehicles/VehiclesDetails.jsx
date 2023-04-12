@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Vehicles.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getContent } from "../../utils/getContent";
 import { getId } from "../../utils/getId";
+import Loading from "../Loading/Loading";
 
 const VehiclesDetails = () => {
 
@@ -12,9 +12,12 @@ const VehiclesDetails = () => {
     const [pilots, setPilots] = useState([]);
     const [films, setFilms] = useState([]);
     const { id } = useParams();
+    const [isLoading, setIsLoading] = useState(false);
+
 
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`https://swapi.dev/api/vehicles/${id}`)
             .then(async (response) => {
 
@@ -26,18 +29,20 @@ const VehiclesDetails = () => {
                     setPilots(values[0]);
                     setFilms(values[1]);
                 })
-
+                setIsLoading(false);
             }).catch(() => {
+                setIsLoading(false);
             })
     }, []);
 
 
     return (
         <>
-            <div className={styles.vehicles}>
+            {isLoading && <Loading/>}
+            <div className="category">
                 <h1>Vehicle</h1>
                 <h1>{vehicle.name}</h1>
-                <div className={styles.vehicle}>
+                <div className="category">
                     <ul>
                         <li>Model: {vehicle.model}</li>
                         <li>Manufacturer: {vehicle.manufacturer}</li>

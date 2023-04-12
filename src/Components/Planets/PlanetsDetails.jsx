@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Planets.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getContent } from "../../utils/getContent";
 import { getId } from "../../utils/getId";
+import Loading from "../Loading/Loading";
 
 const PlanetsDetails = () => {
 
@@ -12,9 +12,11 @@ const PlanetsDetails = () => {
     const [residents, setResidents] = useState([]);
     const [films, setFilms] = useState([]);
     const {id} = useParams();
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`https://swapi.dev/api/planets/${id}`)
         .then(async (response) => {
           
@@ -26,18 +28,21 @@ const PlanetsDetails = () => {
                 setResidents(values[0]);
                 setFilms(values[1])
             })
+            setIsLoading(false);
 
         }).catch(() => {
+            setIsLoading(false);
         })
       }, []);
 
 
     return (
         <>
-        <div className={styles.planets}>
+        {isLoading && <Loading/>}
+        <div className="category">
             <h1>Planet</h1>
             <h1>{planet.name}</h1>
-            <div className={styles.planet}>
+            <div className="category">
                 <ul>
                    <li>Rotation Period: {planet.rotation_period}</li>
                    <li>Orbital Period: {planet.orbital_period}</li>

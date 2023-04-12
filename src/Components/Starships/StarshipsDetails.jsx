@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Starships.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getContent } from "../../utils/getContent";
 import { getId } from "../../utils/getId";
+import Loading from "../Loading/Loading";
 
 const StarshipsDetails = () => {
 
@@ -12,9 +12,11 @@ const StarshipsDetails = () => {
     const [pilots, setPilots] = useState([]);
     const [films, setFilms] = useState([]);
     const {id} = useParams();
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`https://swapi.dev/api/starships/${id}`)
         .then(async (response) => {
           
@@ -26,18 +28,21 @@ const StarshipsDetails = () => {
                 setPilots(values[0]);
                 setFilms(values[1]);
             })
+            setIsLoading(false);
 
         }).catch(() => {
+            setIsLoading(true);
         })
       }, []);
 
     
     return (
         <>
-        <div className={styles.starships}>
+        {isLoading && <Loading/>}
+        <div className="category">
             <h1>Character </h1>
             <h1>{starship.name}</h1>
-            <div className={styles.starship}>
+            <div className="category">
                 <ul>
                    <li>Model: {starship.model}</li>
                    <li>Manufacturer: {starship.manufacturer}</li>

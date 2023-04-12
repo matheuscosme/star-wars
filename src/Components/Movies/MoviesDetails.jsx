@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Movies.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
 import { getContent } from "../../utils/getContent";
+import Loading from "../Loading/Loading";
 
 const MoviesDetails = () => {
 
@@ -15,9 +15,11 @@ const MoviesDetails = () => {
     const [vehicles, setVehicles] = useState([]);
     const [species, setSpecies] = useState([]);
     const { id } = useParams();
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`https://swapi.dev/api/films/${id}`)
             .then(async (response) => {
 
@@ -35,17 +37,19 @@ const MoviesDetails = () => {
                     setVehicles(values[3])
                     setSpecies(values[4])
                 })
-
+                setIsLoading(false);
             }).catch(() => {
+                setIsLoading(false);
             })
     }, []);
 
     return (
         <>
-            <div className={styles.movies_details}>
+            {isLoading && <Loading/>}
+            <div className="category">
                 <h1>Film </h1>
                 <h1>{film.title}</h1>
-                <div className={styles.film}>
+                <div className="category">
                     <ul>
                         <li>Director: {film.director}</li>
                         <li>Producer: {film.producer}</li>

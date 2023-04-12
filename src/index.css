@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/star-wars');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,17 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("Components/img/fundo-de-estrelas.avif");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  /* width: 100vw;
-  height: 100vh; */
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start; */
+  background-image: url("Components/img/space-backgroud.jpg");
 }
 
 #root {
@@ -26,4 +18,56 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.title{
+  display: flex;
+}
+
+button {
+  background-color: yellow;
+  border: none;
+  color:black;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 20px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+.category{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category h1{
+  font-family: 'Star Wars', sans-serif;
+  margin-top: 40px;
+  color: yellow;
+}
+
+.category ul{
+  list-style-type: none;
+}
+
+.category li{
+  color:yellow;
+  margin-top: 10px;
+}
+
+.category a{
+  color:yellow;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: larger;
+}
+
+.category a:hover{
+  color: white;
 }

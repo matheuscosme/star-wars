@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Species.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getContent } from "../../utils/getContent";
 import { getId } from "../../utils/getId";
 import { getHomeWorld } from "../../utils/getHomeworld";
+import Loading from "../Loading/Loading";
 
 const SpeciesDetails = () => {
 
@@ -14,9 +14,11 @@ const SpeciesDetails = () => {
     const [films, setFilms] = useState([]);
     const [homeworld, setHomeWorld] = useState();
     const {id} = useParams();
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`https://swapi.dev/api/species/${id}`)
         .then(async (response) => {
           
@@ -32,18 +34,21 @@ const SpeciesDetails = () => {
                 setFilms(values[1]);
                 setHomeWorld(values[2])
             })
+            setIsLoading(false);
 
         }).catch(() => {
+            setIsLoading(false);
         })
       }, []);
 
 
     return (
         <>
-        <div className={styles.species}>
+        {isLoading && <Loading/>}
+        <div className="category">
             <h1>Specie</h1>
             <h1>{specie.name}</h1>
-            <div className={styles.specie}>
+            <div className="category">
                 <ul>
                    <li>Classification: {specie.classification}</li>
                    <li>Designation: {specie.designation}</li>
