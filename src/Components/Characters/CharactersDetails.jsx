@@ -4,6 +4,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
+import { getContent } from "../../utils/getContent";
+import { getHomeWorld } from "../../utils/getHomeworld";
 
 const CharactersDetails = () => {
 
@@ -13,7 +15,6 @@ const CharactersDetails = () => {
     const [vehicles, setVehicles] = useState([]);
     const [species, setSpecies] = useState([]);
     const [homeworld, setHomeWorld] = useState();
-    const [homeworldUrl, setHomeWorldUrl] = useState();
     const { id } = useParams();
 
 
@@ -22,42 +23,24 @@ const CharactersDetails = () => {
             .then(async (response) => {
 
                 setPerson(response.data);
-                getHomeWorld(response.data.homeworld);
+
                 await Promise.all([
-                    getList(response.data.films),
-                    getList(response.data.starships),
-                    getList(response.data.vehicles),
-                    getList(response.data.species),
+                    getContent(response.data.films),
+                    getContent(response.data.starships),
+                    getContent(response.data.vehicles),
+                    getContent(response.data.species),
+                    getHomeWorld(response.data.homeworld)
                 ]).then((values) => {
                     setFilms(values[0])
                     setStarships(values[1])
                     setVehicles(values[2])
                     setSpecies(values[3])
+                    setHomeWorld(values[4])
                 })
 
             }).catch(() => {
             })
     }, []);
-
-    async function getList(urlList) {
-        let list = [];
-        for (let i = 0; i < urlList.length; i++) {
-            await axios.get(`${urlList[i]}`)
-                .then((response) => {
-                    list.push(response.data);
-                })
-        }
-        return list;
-    }
-
-    async function getHomeWorld(planetUrl) {
-        await axios.get(`${planetUrl}`)
-            .then((response) => {
-                setHomeWorld(response.data.name);
-                var idHomeWorld = getId(response.data.url, "planets");
-                setHomeWorldUrl(idHomeWorld);
-            })
-    }
 
 
     return (
@@ -71,7 +54,7 @@ const CharactersDetails = () => {
                         <li>Mass: {person.mass}</li>
                         <li>Hair Color: {person.hair_color}</li>
                         <li>Eye Color: {person.eye_color}</li>
-                        <li>Homeworld: <Link to={`/PlanetsDetails/${homeworldUrl}`}>{homeworld}</Link></li>
+                        <li>Homeworld: {person.homeworld && <Link to={`/PlanetsDetails/${getId(person.homeworld, "planets")}`}>{homeworld}</Link>}</li>
                         <li>Films:
                             <ul>
                                 {films.map(movie =>

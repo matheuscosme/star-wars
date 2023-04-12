@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Species.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { getId } from "../../utils/getId";
 
 const Species = () => {
 
@@ -21,12 +22,6 @@ const Species = () => {
         })
 
       }, []);
-
-    function removeHttp(url){
-        var id = url.split("https://swapi.dev/api/species/").toString();
-        id = id.replace(/[,/]/g,'');
-        return id
-    }
 
     async function previous(){
         if(previousPage == null){
@@ -63,11 +58,11 @@ const Species = () => {
             <div className={styles.specie}>
                 <ul>
                     {species.map(specie => 
-                    <li key={specie.url}>{removeHttp(specie.url)} - <Link to={`/SpeciesDetails/${removeHttp(specie.url)}`}>{specie.name}</Link> </li>
+                    <li key={specie.url}><Link to={`/SpeciesDetails/${getId(specie.url, "species")}`}>{specie.name}</Link> </li>
                     )} 
                 </ul>
-                <button onClick={previous}>{`<`} Previous</button>
-                <button onClick={next}>Next {`>`}</button>
+                {previousPage && <button onClick={previous}>{`<`} Previous</button>}
+                {nextPage && <button onClick={next}>Next {`>`}</button>}
             </div>
         </div>
         </>

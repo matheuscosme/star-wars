@@ -3,6 +3,8 @@ import styles from "./Planets.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { getContent } from "../../utils/getContent";
+import { getId } from "../../utils/getId";
 
 const PlanetsDetails = () => {
 
@@ -17,30 +19,18 @@ const PlanetsDetails = () => {
         .then(async (response) => {
           
             setPlanet(response.data);
-            setResidents(await getList(response.data.residents));
-            setFilms(await getList(response.data.films));
+            await Promise.all([
+                getContent(response.data.residents),
+                getContent(response.data.films)
+            ]).then((values) => {
+                setResidents(values[0]);
+                setFilms(values[1])
+            })
 
         }).catch(() => {
         })
       }, []);
 
-    
-    async function getList(urlList){
-        let list = [];
-        for(let i = 0;i<urlList.length;i++){
-            await axios.get(`${urlList[i]}`)
-            .then((response) =>{
-                list.push(response.data);
-            })
-        }
-        return list;
-    }
-
-    function removeHttp(url, type){
-        var id = url.split(`https://swapi.dev/api/${type}/`).toString();
-        id = id.replace(/[,/]/g,'');
-        return id
-    }
 
     return (
         <>
@@ -59,14 +49,14 @@ const PlanetsDetails = () => {
                    <li>Residents:
                         <ul>
                             {residents.map(resident =>
-                                <li key={resident.url}><Link to={`/CharactersDetails/${removeHttp(resident.url,"people")}`}>{resident.name}</Link></li>
+                                <li key={resident.url}><Link to={`/CharactersDetails/${getId(resident.url,"people")}`}>{resident.name}</Link></li>
                                 )}
                         </ul>
                     </li>
                    <li>Films:
                         <ul>
                             {films.map(movie =>
-                                <li key={movie.url}><Link to={`/MoviesDetails/${removeHttp(movie.url,"films")}`}>{movie.title}</Link></li>
+                                <li key={movie.url}><Link to={`/MoviesDetails/${getId(movie.url,"films")}`}>{movie.title}</Link></li>
                                 )}
                         </ul>
                     </li>

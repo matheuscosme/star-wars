@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Planets.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { getId } from "../../utils/getId";
 
 const Planets = () => {
 
@@ -21,12 +22,6 @@ const Planets = () => {
         })
 
       }, []);
-
-    function removeHttp(url){
-        var id = url.split("https://swapi.dev/api/planets/").toString();
-        id = id.replace(/[,/]/g,'');
-        return id
-    }
 
     async function previous(){
         if(previousPage == null){
@@ -63,11 +58,11 @@ const Planets = () => {
             <div className={styles.planet}>
                 <ul>
                     {planets.map(planet => 
-                    <li key={planet.url}>{removeHttp(planet.url)} - <Link to={`/PlanetsDetails/${removeHttp(planet.url)}`}>{planet.name}</Link> </li>
+                    <li key={planet.url}><Link to={`/PlanetsDetails/${getId(planet.url, "planets")}`}>{planet.name}</Link> </li>
                     )} 
                 </ul>
-                <button onClick={previous}>{`<`} Previous</button>
-                <button onClick={next}>Next {`>`}</button>
+                {previousPage && <button onClick={previous}>{`<`} Previous</button>}
+                {nextPage && <button onClick={next}>Next {`>`}</button>}
             </div>
         </div>
         </>
