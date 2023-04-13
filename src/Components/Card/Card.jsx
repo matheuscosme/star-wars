@@ -1,9 +1,14 @@
-const Card = () => {
+import styles from "./Card.module.css"
 
-    return(
+function Card({name, img}) {
+    
+    const image = require(`../img/${img}`)
+
+    return (
         <>
             <div>
-                <h1>CARD</h1>
+                <div style={{ backgroundImage:`url(${image})`}} className={styles.image}></div>
+                <div className={styles.text}> <p>{name}</p> </div>
             </div>
         </>
     )

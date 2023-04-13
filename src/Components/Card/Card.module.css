@@ -1,0 +1,27 @@
+.image {
+    margin: 10px;
+    border-radius: 10px;
+    width: 12vw;
+    height: 20vh;
+    text-align: center;
+    background-size: cover;
+    background-position: center center;
+}
+
+.text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text p{
+    color: yellow;
+    font-size: large;
+    font-weight: 300px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.text p:hover{
+    color: white;
+}

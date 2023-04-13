@@ -9,11 +9,30 @@
   height: calc(100% - 6rem);
 }
 
+.logo{
+  width: 17vw;
+  height: 15vh;
+  background-image: url('../img/logo.jpeg');
+  background-size: cover;
+}
+
 .home h1{
   font-family: 'Star Wars', sans-serif;
   margin-top: 40px;
   margin-left: 40px;
   color: yellow;
   font-size: 60px;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 400px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.link{
+  text-decoration: none;
 }
 
