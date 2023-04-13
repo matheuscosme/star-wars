@@ -10,10 +10,9 @@
 }
 
 .logo{
-  width: 17vw;
+  width: auto;
   height: 15vh;
-  background-image: url('../img/logo.jpeg');
-  background-size: cover;
+  min-height: 80px;
 }
 
 .home h1{
@@ -30,6 +29,7 @@
   max-width: 400px;
   margin: 0 auto;
   justify-content: center;
+  gap: 10px 20px;
 }
 
 .link{

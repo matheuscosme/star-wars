@@ -2,14 +2,15 @@ import React from "react";
 import styles from "./Home.module.css";
 import Card from "../Card/Card";
 import { Link } from "react-router-dom";
+import image from "../img/logo.jpeg";
 
 const Home = () => {
     return (
         <>
         <div>
             <div className={styles.home}>
-                {/* <h1>STAR WARS</h1> */}
-                <div className={styles.logo}></div>
+                <img className={styles.logo} src={image} alt="logo star wars" />
+                {/* <div className={styles.logo}></div> */}
             </div>
             <div className={styles.grid}>
                 <Link to="/characters" className={styles.link}><Card name="Characters" img="characters.webp"></Card></Link>

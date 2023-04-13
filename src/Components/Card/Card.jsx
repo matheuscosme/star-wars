@@ -7,7 +7,7 @@ function Card({name, img}) {
     return (
         <>
             <div>
-                <div style={{ backgroundImage:`url(${image})`}} className={styles.image}></div>
+                <img className={styles.image} src={image} alt="" />
                 <div className={styles.text}> <p>{name}</p> </div>
             </div>
         </>

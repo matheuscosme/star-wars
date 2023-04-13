@@ -15,11 +15,10 @@ const MoviesDetails = () => {
     const [vehicles, setVehicles] = useState([]);
     const [species, setSpecies] = useState([]);
     const { id } = useParams();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
-        setIsLoading(true);
         axios.get(`https://swapi.dev/api/films/${id}`)
             .then(async (response) => {
 
@@ -36,9 +35,12 @@ const MoviesDetails = () => {
                     setStarships(values[2])
                     setVehicles(values[3])
                     setSpecies(values[4])
+                }).catch(() => {
+                    alert("Erro ao carregar dados");
                 })
-                setIsLoading(false);
             }).catch(() => {
+                alert("Erro ao carregar dados");
+            }).finally(() => {
                 setIsLoading(false);
             })
     }, []);

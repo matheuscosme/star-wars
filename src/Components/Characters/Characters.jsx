@@ -24,7 +24,6 @@ const Characters = () => {
             setIsLoading(false);
     }, []);
 
-    console.log(isLoading);
     async function previous() {
         if (previousPage == null) {
             return;
