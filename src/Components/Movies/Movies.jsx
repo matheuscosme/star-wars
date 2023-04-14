@@ -13,10 +13,11 @@ const Movies = () => {
         axios.get('https://swapi.dev/api/films/')
             .then((response) => {
                 setMovies(response.data.results);
+                setIsLoading(false);
             }).catch(() => {
-
+                setIsLoading(false);
             })
-            setIsLoading(false);
+
 
     }, []);
 

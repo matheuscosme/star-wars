@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
+import Loading from "../Loading/Loading";
 
 const Starships = () => {
 
     const [starships, setStarships] = useState([]);
     const [nextPage, setNextPage] = useState();
     const [previousPage, setPreviousPage] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get('https://swapi.dev/api/starships/')
@@ -15,8 +17,10 @@ const Starships = () => {
           
             setStarships(response.data.results);
             setNextPage(response.data.next);
+            setIsLoading(false);
          
         }).catch(() => {
+            setIsLoading(false);
           
         })
 
@@ -53,6 +57,7 @@ const Starships = () => {
 
     return (
         <>
+        {isLoading && <Loading/>}
         <div className="category">
             <div className="title">
                 {previousPage && <button onClick={previous}>{`<`}</button>}

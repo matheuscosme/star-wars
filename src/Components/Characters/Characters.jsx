@@ -17,11 +17,12 @@ const Characters = () => {
             .then((response) => {
                 setPersons(response.data.results);
                 setNextPage(response.data.next);
+                setIsLoading(false);
+
             }).catch(() => {
                 setIsLoading(false);
                 alert("Erro ao carregar dados")
             })
-            setIsLoading(false);
     }, []);
 
     async function previous() {

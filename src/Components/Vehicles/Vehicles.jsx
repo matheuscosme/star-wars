@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
+import Loading from "../Loading/Loading";
 
 const Vehicles = () => {
 
     const [vehicles, setVehicles] = useState([]);
     const [nextPage, setNextPage] = useState();
     const [previousPage, setPreviousPage] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get('https://swapi.dev/api/vehicles/')
@@ -15,6 +17,7 @@ const Vehicles = () => {
 
             setVehicles(response.data.results);
             setNextPage(response.data.next);
+            setIsLoading(false);
             
         }).catch(() => {
         })
@@ -51,6 +54,7 @@ const Vehicles = () => {
 
     return (
         <>
+        {isLoading && <Loading/>}
         <div className="category">
             <div className="title">
                 {previousPage && <button onClick={previous}>{`<`}</button>}
