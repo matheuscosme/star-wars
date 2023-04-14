@@ -4,7 +4,6 @@ const Loading = () => {
 
     return (
         <div className="container_loading">
-            <p>
                 <div id="loader">
                     <div className="ls-particles ls-part-1"></div>
                     <div className="ls-particles ls-part-2"></div>
@@ -14,9 +13,6 @@ const Loading = () => {
                     <div className="lightsaber ls-left ls-green"></div>
                     <div className="lightsaber ls-right ls-red"></div>
                 </div>
-            </p>
-            <span>Loading</span>
-            
         </div>
     )
 }

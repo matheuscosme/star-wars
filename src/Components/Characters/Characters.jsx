@@ -9,17 +9,17 @@ const Characters = () => {
     const [persons, setPersons] = useState([]);
     const [nextPage, setNextPage] = useState();
     const [previousPage, setPreviousPage] = useState();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
-        setIsLoading(true);
         axios.get(`https://swapi.dev/api/people/?page=1`)
             .then((response) => {
                 setPersons(response.data.results);
                 setNextPage(response.data.next);
             }).catch(() => {
                 setIsLoading(false);
+                alert("Erro ao carregar dados")
             })
             setIsLoading(false);
     }, []);

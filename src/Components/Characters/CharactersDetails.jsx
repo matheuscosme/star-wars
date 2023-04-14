@@ -42,7 +42,7 @@ const CharactersDetails = () => {
                 setIsLoading(false);
 
             }).catch(() => {
-                setIsLoading(true);
+                setIsLoading(false);
             })
     }, []);
 

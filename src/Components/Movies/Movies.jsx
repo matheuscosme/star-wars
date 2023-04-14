@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getId } from "../../utils/getId";
+import Loading from "../Loading/Loading";
 
 const Movies = () => {
 
     const [movies, setMovies] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get('https://swapi.dev/api/films/')
@@ -14,21 +16,24 @@ const Movies = () => {
             }).catch(() => {
 
             })
+            setIsLoading(false);
 
     }, []);
 
     return (
-
-        <div className="category">
-            <h1>Movies</h1>
+        <>
+            {isLoading && <Loading/>}
             <div className="category">
-                <ul>
-                    {movies.map(movie =>
-                        <li key={movie.url}><Link to={`/MoviesDetails/${getId(movie.url,"films")}`}>{movie.title}</Link> </li>
-                    )}
-                </ul>
+                <h1>Movies</h1>
+                <div className="category">
+                    <ul>
+                        {movies.map(movie =>
+                            <li key={movie.url}><Link to={`/MoviesDetails/${getId(movie.url,"films")}`}>{movie.title}</Link> </li>
+                        )}
+                    </ul>
+                </div>
             </div>
-        </div>
+        </>
 
     )
 }
