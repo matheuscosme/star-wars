@@ -10,7 +10,6 @@ const Home = () => {
         <div>
             <div className={styles.home}>
                 <img className={styles.logo} src={image} alt="logo star wars" />
-                {/* <div className={styles.logo}></div> */}
             </div>
             <div className={styles.grid}>
                 <Link to="/characters" className={styles.link}><Card name="Characters" img="characters.webp"></Card></Link>
